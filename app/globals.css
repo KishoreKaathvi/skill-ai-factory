@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: oklch(0.06 0.01 250); /* Ultra dark background */
+  --foreground: oklch(0.95 0.01 250);
+  
+  --card: oklch(0.09 0.015 250);
+  --card-foreground: oklch(0.95 0.01 250);
+  
+  --popover: oklch(0.08 0.015 250);
+  --popover-foreground: oklch(0.95 0.01 250);
+  
+  --primary: oklch(0.62 0.21 275); /* Neon Purple/Blue */
+  --primary-foreground: oklch(0.99 0.01 250);
+  
+  --secondary: oklch(0.14 0.02 250);
+  --secondary-foreground: oklch(0.88 0.01 250);
+  
+  --muted: oklch(0.12 0.015 250);
+  --muted-foreground: oklch(0.62 0.02 250);
+  
+  --accent: oklch(0.68 0.16 170); /* Bright Neon Green/Cyan */
+  --accent-foreground: oklch(0.08 0.02 170);
+  
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 25);
+  
+  --border: oklch(0.14 0.02 250);
+  --input: oklch(0.14 0.02 250);
+  --ring: oklch(0.62 0.21 275);
+  
+  --radius: 0.75rem;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-accent {
+  background: rgba(157, 78, 221, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+/* Glowing animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.glow-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: pulse-glow 8s infinite ease-in-out;
 }
